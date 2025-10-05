@@ -6,14 +6,20 @@ import { PokemonCarta } from '@/types/pokeapi';
 
 interface GradeCartasProps {
   cartas?: PokemonCarta[];
+  aoSelecionarCarta?: (carta: PokemonCarta) => void;
 }
 
-export default function GradeCartas({ cartas }: GradeCartasProps) {
+export default function GradeCartas({ cartas, aoSelecionarCarta }: GradeCartasProps) {
   // Usa React Query para buscar cartas populares
   const { data: cartasPopulares, isLoading, error } = useCartasPopulares(12);
   
   // Usa cartas passadas como prop ou cartas da API
   const cartasParaExibir = cartas || cartasPopulares || [];
+
+  // Função para selecionar carta
+  const handleSelecionarCarta = (carta: PokemonCarta) => {
+    aoSelecionarCarta?.(carta);
+  };
   const formatarPreco = (preco: number) => {
     return new Intl.NumberFormat('pt-BR', {
       style: 'currency',
@@ -64,7 +70,11 @@ export default function GradeCartas({ cartas }: GradeCartasProps) {
       
       <div className={styles.grade}>
         {cartasParaExibir.map((carta) => (
-          <div key={carta.id} className={styles.cartaContainer}>
+          <div 
+            key={carta.id} 
+            className={styles.cartaContainer}
+            onClick={() => handleSelecionarCarta(carta)}
+          >
             <div className={styles.imagemContainer}>
               <img 
                 src={carta.imagem} 

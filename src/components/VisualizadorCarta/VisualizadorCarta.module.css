@@ -1,0 +1,514 @@
+/* Visualizador como tela completa */
+.visualizador {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--background-secondary);
+  z-index: 50; /* Abaixo do menu inferior (z-index: 99) */
+  display: flex;
+  flex-direction: column;
+  animation: slideInUp 0.3s ease-out;
+}
+
+/* Header */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  background: var(--background-primary);
+  border-bottom: 1px solid var(--border-primary);
+  box-shadow: var(--shadow-sm);
+}
+
+.botaoVoltar {
+  background: var(--gray-100);
+  border: 1px solid var(--border-secondary);
+  border-radius: 12px;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-tertiary);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.botaoVoltar:hover {
+  background: var(--gray-200);
+  transform: scale(1.05);
+}
+
+.nomeCarta {
+  color: var(--text-primary);
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin: 0;
+  text-transform: capitalize;
+  flex: 1;
+  text-align: center;
+}
+
+.botaoFavoritar {
+  background: none;
+  border: none;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.botaoFavoritar:hover {
+  transform: scale(1.1);
+}
+
+.botaoFavoritar.favoritada {
+  color: var(--warning-500);
+}
+
+.botaoFavoritar.favoritada:hover {
+  color: var(--warning-600);
+}
+
+/* Conteúdo */
+.conteudo {
+  flex: 1;
+  padding: 0.5rem 1rem;
+  padding-bottom: 100px; /* Espaço para o menu inferior */
+  overflow-y: auto;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  min-height: 0; /* Importante: permite que o flex child seja menor que o conteúdo */
+}
+
+.containerImagem {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0; /* Impede que a imagem seja comprimida */
+}
+
+.imagemCarta {
+  width: 100%;
+  height: auto;
+  max-width: 200px;
+}
+
+/* Separador elegante */
+.separador {
+  border: none;
+  height: 3px;
+  background: var(--border-secondary);
+  margin: 2rem 1rem;
+  border-radius: 2px;
+  flex-shrink: 0; /* Impede que o separador seja comprimido */
+}
+
+/* Informações */
+.informacoes {
+  padding: 1rem;
+  color: var(--text-primary);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  width: 100%;
+  flex-shrink: 0; 
+}
+
+.nomeCartaInfo {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0;
+  text-transform: capitalize;
+  text-align: left;
+}
+
+.colecao {
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  margin: 0;
+  text-align: left;
+}
+
+.raridadeNumero {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-tertiary);
+  margin: 0;
+  text-align: left;
+}
+
+.botaoAdicionarColecao {
+  background: var(--primary-500);
+  color: var(--background-primary);
+  border: none;
+  border-radius: 12px;
+  padding: 1rem 2rem;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-top: 1rem;
+  width: 100%;
+  align-self: stretch;
+}
+
+.botaoAdicionarColecao:hover {
+  background: var(--primary-600);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-primary);
+}
+
+.precoContainer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 1rem;
+  margin: 1rem 0;
+  padding: 1rem;
+  background: var(--gray-50);
+  border-radius: 12px;
+  border: 2px solid var(--border-primary);
+  width: 100%;
+}
+
+.preco {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--success-500);
+}
+
+.variacao {
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 0.25rem 0.5rem;
+  border-radius: 8px;
+}
+
+.variacao.positiva {
+  background: var(--success-100);
+  color: var(--success-600);
+}
+
+.variacao.negativa {
+  background: var(--error-100);
+  color: var(--error-500);
+}
+
+/* Detalhes */
+.detalhes {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.detalhe {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  background: var(--background-tertiary);
+  border-radius: 8px;
+  border-left: 3px solid var(--border-primary);
+  transition: border-color 0.2s ease;
+}
+
+.detalhe:hover {
+  border-left-color: var(--primary-500);
+}
+
+.labelDetalhe {
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.valorDetalhe {
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+/* Animações */
+@keyframes slideInUp {
+  from {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Responsividade */
+@media (min-width: 768px) {
+  .conteudo {
+    padding: 1rem;
+    padding-bottom: 100px; /* Espaço para o menu inferior */
+  }
+
+  .containerImagem {
+    padding: 1rem;
+  }
+
+  .imagemCarta {
+    max-width: 350px;
+  }
+
+  .separador {
+    margin: 2rem 1rem;
+  }
+
+  .informacoes {
+    padding: 1rem;
+  }
+
+  .nomeCartaInfo {
+    font-size: 2rem;
+  }
+
+  .colecao {
+    font-size: 1.2rem;
+  }
+}
+
+.botaoVoltar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  background: var(--gray-100);
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.botaoVoltar:hover {
+  background: var(--gray-200);
+  transform: scale(1.05);
+}
+
+.botaoVoltar:active {
+  transform: scale(0.95);
+}
+
+.iconeVoltar {
+  font-size: 1.25rem;
+  color: var(--text-tertiary);
+}
+
+.infoCarta {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.nomeCarta {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.colecaoCarta {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.conteudo {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 1.5rem 1rem;
+  gap: 1.5rem;
+  overflow-y: auto;
+  min-height: 0;
+}
+
+.imagemContainer {
+  position: relative;
+  max-width: 300px;
+  width: 100%;
+  aspect-ratio: 2/3;
+  border-radius: 1rem;
+  overflow: hidden;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+  animation: cardReveal 0.5s ease-out 0.2s both;
+  margin: 0 auto;
+}
+
+@keyframes cardReveal {
+  from {
+    transform: scale(0.8) rotateY(15deg);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1) rotateY(0deg);
+    opacity: 1;
+  }
+}
+
+.imagemCarta {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 1rem;
+}
+
+.detalhes {
+  width: 100%;
+  max-width: 300px;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  animation: detailsReveal 0.5s ease-out 0.3s both;
+  margin-bottom: 1rem;
+}
+
+@keyframes detailsReveal {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.precoContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  background: var(--background-primary);
+  border-radius: 0.75rem;
+  box-shadow: var(--shadow-sm);
+}
+
+.preco {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--success-600);
+}
+
+.variacao {
+  font-size: 0.875rem;
+  font-weight: 600;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.375rem;
+}
+
+.variacao.positiva {
+  background-color: var(--success-100);
+  color: var(--success-600);
+}
+
+.variacao.negativa {
+  background-color: var(--error-100);
+  color: var(--error-500);
+}
+
+.informacoes {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding: 1rem;
+  border-radius: 0.75rem;
+  border: 1px solid var(--border-primary);
+}
+
+.infoItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid var(--gray-100);
+}
+
+.infoItem:last-child {
+  border-bottom: none;
+}
+
+.infoLabel {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.infoValor {
+  font-size: 0.875rem;
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+/* Responsividade */
+@media (min-width: 768px) {
+  .header {
+    min-height: 70px;
+  }
+  
+  .nomeCarta {
+    font-size: 1.5rem;
+  }
+  
+  .conteudo {
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 2rem;
+    gap: 2rem;
+  }
+  
+  .imagemContainer {
+    max-width: 320px;
+  }
+  
+  .detalhes {
+    max-width: 280px;
+    margin-bottom: 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .header {
+    padding: 0 0.5rem;
+    min-height: 50px;
+  }
+  
+  .conteudo {
+    padding: 1rem 0.75rem;
+    gap: 1rem;
+  }
+  
+  .imagemContainer {
+    max-width: 260px;
+  }
+  
+  .detalhes {
+    max-width: 260px;
+    margin-bottom: 0.5rem;
+  }
+  
+  .preco {
+    font-size: 1.25rem;
+  }
+}

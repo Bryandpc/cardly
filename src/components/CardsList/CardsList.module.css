@@ -5,7 +5,7 @@
 .sectionTitle {
   font-size: 1.125rem;
   font-weight: 600;
-  color: #111827;
+  color: var(--text-primary);
   margin: 0 0 1rem 0;
 }
 
@@ -16,8 +16,8 @@
 }
 
 .cardItem {
-  background-color: white;
-  border: 1px solid #e5e7eb;
+  background-color: var(--background-primary);
+  border: 1px solid var(--border-primary);
   border-radius: 0.5rem;
   padding: 1rem;
 }
@@ -30,19 +30,19 @@
 
 .cardInfo h3 {
   font-weight: 500;
-  color: #111827;
+  color: var(--text-primary);
   margin: 0 0 0.25rem 0;
 }
 
 .cardSet {
   font-size: 0.875rem;
-  color: #6b7280;
+  color: var(--text-secondary);
   margin: 0 0 0.25rem 0;
 }
 
 .cardRarity {
   font-size: 0.75rem;
-  color: #9ca3af;
+  color: var(--gray-400);
   margin: 0;
 }
 
@@ -57,14 +57,14 @@
 
 .priceChange {
   font-size: 0.75rem;
-  color: #6b7280;
+  color: var(--text-secondary);
   margin: 0;
 }
 
 .priceUp {
-  color: #16a34a;
+  color: var(--success-600);
 }
 
 .priceDown {
-  color: #dc2626;
+  color: var(--error-500);
 }

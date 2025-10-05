@@ -1,6 +1,6 @@
 .container {
   min-height: 100vh;
-  background-color: #f9fafb;
+  background-color: var(--background-secondary);
 }
 
 .header {
@@ -8,11 +8,11 @@
   top: 0;
   left: 0;
   right: 0;
-  background-color: white;
-  border-bottom: 1px solid #e5e7eb;
+  background-color: var(--background-primary);
+  border-bottom: 1px solid var(--border-primary);
   padding: 1rem 1rem;
   z-index: 100;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--shadow-sm);
 }
 
 .headerContent {
@@ -200,13 +200,13 @@ a.secondary {
 .conteudoAba h2 {
   font-size: 1.5rem;
   font-weight: 700;
-  color: #111827;
+  color: var(--text-primary);
   margin: 0 0 1rem 0;
 }
 
 .conteudoAba p {
   font-size: 1rem;
-  color: #6b7280;
+  color: var(--text-secondary);
   margin: 0;
   line-height: 1.5;
 }

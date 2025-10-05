@@ -4,6 +4,7 @@ export { ListaCartas } from './ListaCartas';
 export { PesquisaCartas } from './PesquisaCartas';
 export { GradeCartas } from './GradeCartas';
 export { MenuInferior, type AbaMenu } from './MenuInferior';
+export { VisualizadorCarta } from './VisualizadorCarta';
 
 export type { PerfilUsuarioProps } from './PerfilUsuario';
 export type { Carta } from './ListaCartas';

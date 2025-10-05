@@ -5,7 +5,7 @@
 .sectionTitle {
   font-size: 1.125rem;
   font-weight: 600;
-  color: #111827;
+  color: var(--text-primary);
   margin: 0 0 1rem 0;
 }
 
@@ -16,8 +16,8 @@
 }
 
 .actionButton {
-  background-color: white;
-  border: 1px solid #e5e7eb;
+  background-color: var(--background-primary);
+  border: 1px solid var(--border-primary);
   border-radius: 0.5rem;
   padding: 1rem;
   text-align: center;
@@ -28,7 +28,7 @@
 }
 
 .actionButton:hover {
-  background-color: #f9fafb;
+  background-color: var(--gray-50);
 }
 
 .actionIcon {
@@ -40,5 +40,5 @@
 .actionText {
   font-size: 0.875rem;
   font-weight: 500;
-  color: #374151;
+  color: var(--text-tertiary);
 }
