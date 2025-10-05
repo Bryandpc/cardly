@@ -1,7 +1,7 @@
 'use client';
 
 import styles from './VisualizadorCarta.module.css';
-import { HiArrowLeft, HiStar, HiArrowTrendingUp, HiArrowTrendingDown, HiMinus } from 'react-icons/hi2';
+import { HiArrowLeft, HiStar } from 'react-icons/hi2';
 import { PokemonCarta } from '@/types/pokeapi';
 import { useState, useRef } from 'react';
 import Botao from '../Botao/Botao';
@@ -58,7 +58,7 @@ export default function VisualizadorCarta({ carta, aoVoltar }: VisualizadorCarta
   };
 
   // Calcula estatísticas do gráfico
-  const calcularEstatisticas = (dados: any[]) => {
+  const calcularEstatisticas = (dados: Array<{data: string, preco: number, precoFormatado: string}>) => {
     const precos = dados.map(d => d.preco);
     const precoMinimo = Math.min(...precos);
     const precoMaximo = Math.max(...precos);
@@ -88,18 +88,6 @@ export default function VisualizadorCarta({ carta, aoVoltar }: VisualizadorCarta
 
   const dadosGrafico = gerarDadosGrafico();
   const estatisticas = calcularEstatisticas(dadosGrafico);
-
-  // Ícone da tendência
-  const IconeTendencia = () => {
-    switch (estatisticas.tendencia) {
-      case 'alta':
-        return <HiArrowTrendingUp className={styles.iconeAlta} />;
-      case 'baixa':
-        return <HiArrowTrendingDown className={styles.iconeBaixa} />;
-      default:
-        return <HiMinus className={styles.iconeEstavel} />;
-    }
-  };
 
   // Cores baseadas na tendência
   const corLinha = estatisticas.tendencia === 'alta' 

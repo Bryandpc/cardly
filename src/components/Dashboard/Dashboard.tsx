@@ -2,13 +2,13 @@
 
 import styles from './Dashboard.module.css';
 import GraficoColecao from '../GraficoColecao/GraficoColecao';
-import { HiStar, HiChartBarSquare, HiArrowTrendingUp, HiArrowTrendingDown } from 'react-icons/hi2';
+import { HiStar, HiChartBarSquare } from 'react-icons/hi2';
 
 interface DashboardProps {
-  nomeUsuario: string;
+  nomeUsuario?: string; // Tornando opcional já que não está sendo usado
 }
 
-export default function Dashboard({ nomeUsuario }: DashboardProps) {
+export default function Dashboard({ }: DashboardProps) {
   // Dados mock internos para carteira
   const dadosCarteira = {
     valorCarteira: "R$ 12.540,00",

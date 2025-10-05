@@ -21,7 +21,7 @@ interface GraficoEvolucaoProps {
 }
 
 // Componente personalizado para o tooltip
-const CustomTooltip = ({ active, payload }: any) => {
+const CustomTooltip = ({ active, payload }: {active?: boolean, payload?: Array<{value: number}>}) => {
   if (active && payload && payload.length) {
     return (
       <div className={styles.tooltip}>

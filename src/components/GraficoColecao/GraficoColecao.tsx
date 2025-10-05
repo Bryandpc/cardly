@@ -22,7 +22,11 @@ interface GraficoColecaoProps {
 }
 
 // Componente personalizado para o tooltip
-const CustomTooltip = ({ active, payload, tipo }: any) => {
+const CustomTooltip = ({ active, payload, tipo }: {
+  active?: boolean, 
+  payload?: Array<{payload: DadosColecao, value: number}>, 
+  tipo: 'valor' | 'cartas'
+}) => {
   if (active && payload && payload.length) {
     const data = payload[0].payload;
     return (
