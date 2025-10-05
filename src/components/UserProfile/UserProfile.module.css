@@ -1,0 +1,73 @@
+.profileSection {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.avatar {
+  width: 3rem;
+  height: 3rem;
+  background: linear-gradient(135deg, #60a5fa 0%, #2563eb 100%);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.avatarText {
+  color: white;
+  font-weight: 600;
+  font-size: 1.125rem;
+}
+
+.userName {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #111827;
+  margin: 0 0 0.25rem 0;
+}
+
+.walletValue {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: #16a34a;
+  margin: 0;
+}
+
+.walletChange {
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.changePositive {
+  color: #16a34a;
+}
+
+.changeNegative {
+  color: #dc2626;
+}
+
+/* Responsividade mobile-first */
+@media (max-width: 480px) {
+  .profileSection {
+    gap: 0.5rem;
+  }
+  
+  .avatar {
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+  
+  .avatarText {
+    font-size: 1rem;
+  }
+  
+  .userName {
+    font-size: 1rem;
+  }
+  
+  .walletValue {
+    font-size: 1rem;
+  }
+}

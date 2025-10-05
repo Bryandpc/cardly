@@ -1,0 +1,1 @@
+export { default as GradeCartas } from './GradeCartas';

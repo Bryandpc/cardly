@@ -1,0 +1,70 @@
+.secao {
+  margin-bottom: 1.5rem;
+}
+
+.tituloSecao {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #111827;
+  margin: 0 0 1rem 0;
+}
+
+.listaCartas {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.itemCarta {
+  background-color: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.5rem;
+  padding: 1rem;
+}
+
+.conteudoCarta {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.infoCarta h3 {
+  font-weight: 500;
+  color: #111827;
+  margin: 0 0 0.25rem 0;
+}
+
+.conjuntoCarta {
+  font-size: 0.875rem;
+  color: #6b7280;
+  margin: 0 0 0.25rem 0;
+}
+
+.raridadeCarta {
+  font-size: 0.75rem;
+  color: #9ca3af;
+  margin: 0;
+}
+
+.precoCarta {
+  text-align: right;
+}
+
+.valorPreco {
+  font-weight: 600;
+  margin: 0 0 0.25rem 0;
+}
+
+.variacaoPreco {
+  font-size: 0.75rem;
+  color: #6b7280;
+  margin: 0;
+}
+
+.precoAlta {
+  color: #16a34a;
+}
+
+.precoBaixa {
+  color: #dc2626;
+}
