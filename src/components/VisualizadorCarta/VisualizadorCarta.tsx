@@ -4,6 +4,8 @@ import styles from './VisualizadorCarta.module.css';
 import { HiArrowLeft, HiStar } from 'react-icons/hi2';
 import { PokemonCarta } from '@/types/pokeapi';
 import { useState } from 'react';
+import Botao from '../Botao/Botao';
+import { FiFolderPlus } from 'react-icons/fi';
 
 interface VisualizadorCartaProps {
   carta: PokemonCarta | null;
@@ -54,42 +56,41 @@ export default function VisualizadorCarta({ carta, aoVoltar }: VisualizadorCarta
 
         {/* Informações da carta */}
         <div className={styles.informacoes}>
-          {/* Nome da carta */}
           <h2 className={styles.nomeCartaInfo}>{carta.nome}</h2>
+          <p className={styles.colecao}>{carta.colecao}</p>
           
-          {/* Coleção */}
-          <p className={styles.colecao}>Coleção: {carta.colecao}</p>
-          
-          {/* Raridade e número */}
           <p className={styles.raridadeNumero}>
             {carta.raridade && <span>{carta.raridade}</span>}
             {carta.raridade && carta.id && <span> • </span>}
             <span>#{carta.id}</span>
           </p>
-          
-          {/* Preço */}
-          <div className={styles.precoContainer}>
-            <span className={styles.preco}>
-              {new Intl.NumberFormat('pt-BR', {
-                style: 'currency',
-                currency: 'BRL'
-              }).format(carta.preco)}
-            </span>
-            {carta.variacao !== undefined && (
-              <span 
-                className={`${styles.variacao} ${
-                  carta.variacao >= 0 ? styles.positiva : styles.negativa
-                }`}
-              >
-                {carta.variacao >= 0 ? '+' : ''}{carta.variacao.toFixed(1)}%
-              </span>
-            )}
+
+          <div className={styles.informacoesAdicionais}>
+            <Botao
+                icone={<FiFolderPlus />}
+                texto="Adicionar à coleção"
+                onClick={() => alert('Funcionalidade de adicionar à coleção ainda não implementada')}
+            >
+            </Botao>
+            
+            <div className={styles.precoContainer}>
+                <span className={styles.preco}>
+                {new Intl.NumberFormat('pt-BR', {
+                    style: 'currency',
+                    currency: 'BRL'
+                }).format(carta.preco)}
+                </span>
+                {carta.variacao !== undefined && (
+                <span 
+                    className={`${styles.variacao} ${
+                    carta.variacao >= 0 ? styles.positiva : styles.negativa
+                    }`}
+                >
+                    {carta.variacao >= 0 ? '+' : ''}{carta.variacao.toFixed(1)}%
+                </span>
+                )}
+            </div>
           </div>
-          
-          {/* Botão de adicionar à coleção */}
-          <button className={styles.botaoAdicionarColecao}>
-            Adicionar à Coleção
-          </button>
         </div>
       </div>
     </div>

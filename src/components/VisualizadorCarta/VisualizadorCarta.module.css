@@ -110,22 +110,24 @@
   background: var(--border-secondary);
   margin: 2rem 1rem;
   border-radius: 2px;
-  flex-shrink: 0; /* Impede que o separador seja comprimido */
-}
-
-/* Informações */
-.informacoes {
-  padding: 1rem;
-  color: var(--text-primary);
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  width: 100%;
   flex-shrink: 0; 
 }
 
+.informacoes {
+    border-radius: 6px;
+    border: 1px solid var(--border-primary);
+    padding: 1rem;
+    color: var(--text-primary);
+    display: flex;
+    gap: .1rem;
+    flex-direction: column;
+    width: 100%;
+    flex-shrink: 0; 
+}
+
 .nomeCartaInfo {
-  font-size: 1.8rem;
+  font-size: 1rem;
+  padding-bottom: .2rem;
   font-weight: 700;
   color: var(--text-primary);
   margin: 0;
@@ -134,7 +136,7 @@
 }
 
 .colecao {
-  font-size: 1.1rem;
+  font-size: .875rem;
   font-weight: 500;
   color: var(--text-secondary);
   margin: 0;
@@ -142,7 +144,7 @@
 }
 
 .raridadeNumero {
-  font-size: 1rem;
+  font-size: .875rem;
   font-weight: 600;
   color: var(--text-tertiary);
   margin: 0;
@@ -168,6 +170,12 @@
   background: var(--primary-600);
   transform: translateY(-2px);
   box-shadow: var(--shadow-primary);
+}
+
+.informacoesAdicionais {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
 }
 
 .precoContainer {
@@ -425,15 +433,6 @@
 .variacao.negativa {
   background-color: var(--error-100);
   color: var(--error-500);
-}
-
-.informacoes {
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-  padding: 1rem;
-  border-radius: 0.75rem;
-  border: 1px solid var(--border-primary);
 }
 
 .infoItem {
