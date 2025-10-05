@@ -1,0 +1,94 @@
+/* Container igual ao das outras telas */
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* Seção do Perfil - igual ao PerfilUsuario */
+.secaoPerfil {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.avatar {
+  width: 3rem;
+  height: 3rem;
+  background: linear-gradient(135deg, var(--primary-500) 0%, var(--primary-600) 100%);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.textoAvatar {
+  color: var(--background-primary);
+  font-weight: 600;
+  font-size: 1.125rem;
+  text-transform: uppercase;
+}
+
+.infoPerfil {
+  flex: 1;
+}
+
+.nomeUsuario {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0 0 0.25rem 0;
+}
+
+.carteiraInfo {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.valorCarteira {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: var(--success-600);
+}
+
+.variacaoCarteira {
+  font-size: 0.875rem;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.variacaoPositiva {
+  color: var(--success-600);
+}
+
+.variacaoNegativa {
+  color: var(--error-500);
+}
+
+/* Título da página */
+.tituloPagina {
+  padding-top: 0.5rem;
+}
+
+.titulo {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--texto-primario);
+  margin: 0 0 0.25rem 0;
+}
+
+.subtitulo {
+  font-size: 0.875rem;
+  color: var(--texto-secundario);
+  margin: 0;
+}
+
+/* Responsividade */
+@media (max-width: 480px) {
+  .titulo {
+    font-size: 1.25rem;
+  }
+}

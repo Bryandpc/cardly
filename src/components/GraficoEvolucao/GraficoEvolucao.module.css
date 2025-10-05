@@ -1,0 +1,45 @@
+/* Estilo para o gráfico de evolução */
+.graficoEvolucao {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 2rem auto 0 auto;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--borda-primaria);
+  width: 100%;
+  max-width: 100%;
+  position: relative;
+  left: 0;
+  right: 0;
+}
+
+.tooltip {
+  background: var(--fundo-primario);
+  border: 1px solid var(--borda-primaria);
+  border-radius: 8px;
+  padding: 0.75rem;
+  box-shadow: var(--sombra-media);
+  backdrop-filter: blur(10px);
+}
+
+.tooltipPreco {
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--texto-primario);
+  margin: 0;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .graficoEvolucao {
+    margin: 1.5rem auto 0 auto;
+    padding-top: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .graficoEvolucao {
+    margin: 1rem auto 0 auto;
+    padding-top: 0.75rem;
+  }
+}

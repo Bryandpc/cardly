@@ -9,17 +9,7 @@ import { FiFolderPlus } from 'react-icons/fi';
 import { IoMdArrowDropdown, IoMdArrowDropup } from 'react-icons/io';
 import { HiRectangleStack } from 'react-icons/hi2';
 import { useToasts } from '@/hooks';
-import {
-  LineChart,
-  Line,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  ResponsiveContainer,
-  Tooltip,
-  Area,
-  AreaChart
-} from 'recharts';
+import { GraficoEvolucao } from '@/components';
 
 interface VisualizadorCartaProps {
   carta: PokemonCarta | null;
@@ -29,7 +19,6 @@ interface VisualizadorCartaProps {
 export default function VisualizadorCarta({ carta, aoVoltar }: VisualizadorCartaProps) {
   const [favoritada, setFavoritada] = useState(false);
   const [animandoColecao, setAnimandoColecao] = useState(false);
-  const [tipoGrafico, setTipoGrafico] = useState<'linha' | 'area'>('area');
   const botaoRef = useRef<HTMLDivElement>(null);
   const toasts = useToasts();
   
@@ -99,21 +88,6 @@ export default function VisualizadorCarta({ carta, aoVoltar }: VisualizadorCarta
 
   const dadosGrafico = gerarDadosGrafico();
   const estatisticas = calcularEstatisticas(dadosGrafico);
-
-  // Componente customizado do tooltip
-  const CustomTooltip = ({ active, payload, label }: any) => {
-    if (active && payload && payload.length) {
-      return (
-        <div className={styles.tooltip}>
-          <p className={styles.tooltipData}>{label}</p>
-          <p className={styles.tooltipPreco}>
-            {payload[0].payload.precoFormatado}
-          </p>
-        </div>
-      );
-    }
-    return null;
-  };
 
   // Ícone da tendência
   const IconeTendencia = () => {
@@ -226,6 +200,7 @@ export default function VisualizadorCarta({ carta, aoVoltar }: VisualizadorCarta
             </div>
             
             <div className={styles.precoContainer}>
+                <span className={styles.labelPreco}>Valor atual</span>
                 <div className={styles.precoContainerPrincipal}>
                     <span
                       className={`${styles.precoContainerIcone} ${
@@ -261,155 +236,8 @@ export default function VisualizadorCarta({ carta, aoVoltar }: VisualizadorCarta
             </div>
           </div>
 
-          {/* Seção do Gráfico de Evolução de Preço */}
-          <div className={styles.secaoGrafico}>
-            {/* Header do gráfico */}
-            <div className={styles.headerGrafico}>
-              <div className={styles.tituloGrafico}>
-                <h3>Evolução de Preço</h3>
-                <div className={styles.tendenciaGrafico}>
-                  <IconeTendencia />
-                  <span className={`${styles.variacaoGrafico} ${styles[estatisticas.tendencia]}`}>
-                    {estatisticas.variacaoPercentual >= 0 ? '+' : ''}
-                    {estatisticas.variacaoPercentual.toFixed(1)}%
-                  </span>
-                </div>
-              </div>
-              
-              {/* Controles do gráfico */}
-              <div className={styles.controlesGrafico}>
-                <button
-                  className={`${styles.botaoTipoGrafico} ${tipoGrafico === 'linha' ? styles.ativo : ''}`}
-                  onClick={() => setTipoGrafico('linha')}
-                >
-                  Linha
-                </button>
-                <button
-                  className={`${styles.botaoTipoGrafico} ${tipoGrafico === 'area' ? styles.ativo : ''}`}
-                  onClick={() => setTipoGrafico('area')}
-                >
-                  Área
-                </button>
-              </div>
-            </div>
-
-            {/* Estatísticas rápidas */}
-            <div className={styles.estatisticasGrafico}>
-              <div className={styles.estatistica}>
-                <span className={styles.estatisticaLabel}>Mínimo</span>
-                <span className={styles.estatisticaValor}>
-                  {new Intl.NumberFormat('pt-BR', {
-                    style: 'currency',
-                    currency: 'BRL',
-                  }).format(estatisticas.precoMinimo)}
-                </span>
-              </div>
-              <div className={styles.estatistica}>
-                <span className={styles.estatisticaLabel}>Máximo</span>
-                <span className={styles.estatisticaValor}>
-                  {new Intl.NumberFormat('pt-BR', {
-                    style: 'currency',
-                    currency: 'BRL',
-                  }).format(estatisticas.precoMaximo)}
-                </span>
-              </div>
-              <div className={styles.estatistica}>
-                <span className={styles.estatisticaLabel}>Médio</span>
-                <span className={styles.estatisticaValor}>
-                  {new Intl.NumberFormat('pt-BR', {
-                    style: 'currency',
-                    currency: 'BRL',
-                  }).format(estatisticas.precoMedio)}
-                </span>
-              </div>
-            </div>
-
-            {/* Gráfico */}
-            <div className={styles.containerGrafico}>
-              <ResponsiveContainer width="100%" height={280}>
-                {tipoGrafico === 'area' ? (
-                  <AreaChart data={dadosGrafico} margin={{ top: 5, right: 5, left: 5, bottom: 5 }}>
-                    <defs>
-                      <linearGradient id="gradientArea" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="5%" stopColor={corLinha} stopOpacity={0.3} />
-                        <stop offset="95%" stopColor={corLinha} stopOpacity={0.05} />
-                      </linearGradient>
-                    </defs>
-                    <CartesianGrid 
-                      strokeDasharray="3 3" 
-                      stroke="var(--borda-secundaria)" 
-                      strokeOpacity={0.3}
-                    />
-                    <XAxis 
-                      dataKey="data" 
-                      axisLine={false}
-                      tickLine={false}
-                      tick={{ fontSize: 12, fill: 'var(--texto-secundario)' }}
-                    />
-                    <YAxis 
-                      axisLine={false}
-                      tickLine={false}
-                      tick={{ fontSize: 12, fill: 'var(--texto-secundario)' }}
-                      tickFormatter={(value) => 
-                        new Intl.NumberFormat('pt-BR', {
-                          style: 'currency',
-                          currency: 'BRL',
-                          minimumFractionDigits: 0,
-                          maximumFractionDigits: 0,
-                        }).format(value)
-                      }
-                    />
-                    <Tooltip content={<CustomTooltip />} />
-                    <Area
-                      type="monotone"
-                      dataKey="preco"
-                      stroke={corLinha}
-                      strokeWidth={3}
-                      fill="url(#gradientArea)"
-                      dot={{ fill: corLinha, strokeWidth: 2, r: 4 }}
-                      activeDot={{ r: 6, stroke: corLinha, strokeWidth: 2 }}
-                    />
-                  </AreaChart>
-                ) : (
-                  <LineChart data={dadosGrafico} margin={{ top: 5, right: 5, left: 5, bottom: 5 }}>
-                    <CartesianGrid 
-                      strokeDasharray="3 3" 
-                      stroke="var(--borda-secundaria)" 
-                      strokeOpacity={0.3}
-                    />
-                    <XAxis 
-                      dataKey="data" 
-                      axisLine={false}
-                      tickLine={false}
-                      tick={{ fontSize: 12, fill: 'var(--texto-secundario)' }}
-                    />
-                    <YAxis 
-                      axisLine={false}
-                      tickLine={false}
-                      tick={{ fontSize: 12, fill: 'var(--texto-secundario)' }}
-                      tickFormatter={(value) => 
-                        new Intl.NumberFormat('pt-BR', {
-                          style: 'currency',
-                          currency: 'BRL',
-                          minimumFractionDigits: 0,
-                          maximumFractionDigits: 0,
-                        }).format(value)
-                      }
-                    />
-                    <Tooltip content={<CustomTooltip />} />
-                    <Line
-                      type="monotone"
-                      dataKey="preco"
-                      stroke={corLinha}
-                      strokeWidth={3}
-                      dot={{ fill: corLinha, strokeWidth: 2, r: 4 }}
-                      activeDot={{ r: 6, stroke: corLinha, strokeWidth: 2 }}
-                    />
-                  </LineChart>
-                )}
-              </ResponsiveContainer>
-            </div>
-          </div>
+          {/* Evolução de Preço */}
+          <GraficoEvolucao dados={dadosGrafico} corLinha={corLinha} />
         </div>
       </div>
 

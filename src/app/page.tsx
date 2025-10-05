@@ -1,7 +1,7 @@
 'use client';
 
 import styles from './page.module.css';
-import { PerfilUsuario, PesquisaCartas, GradeCartas, MenuInferior, VisualizadorCarta, type AbaMenu } from '@/components';
+import { PerfilUsuario, PesquisaCartas, GradeCartas, MenuInferior, VisualizadorCarta, Dashboard, type AbaMenu } from '@/components';
 import type { CartaPesquisa } from '@/components';
 import { useState } from 'react';
 import { PokemonCarta } from '@/types/pokeapi';
@@ -15,12 +15,7 @@ export default function Home() {
 
   // Dados mock para demonstração
   const usuario = {
-    nome: "Ash Ketchum",
-    valorCarteira: "R$ 12.540,00",
-    variacao: {
-      porcentagem: "+5,48%",
-      ehPositiva: true
-    }
+    nome: "Ash Ketchum"
   };
 
   // Função para lidar com seleção de carta na pesquisa
@@ -71,10 +66,9 @@ export default function Home() {
       case 'dashboard':
         return (
           <div className={styles.conteudoPagina} key="dashboard">
-            <div className={styles.conteudoAba}>
-              <h2>Dashboard</h2>
-              <p>Análises e estatísticas das suas cartas em breve...</p>
-            </div>
+            <Dashboard 
+              nomeUsuario={usuario.nome}
+            />
           </div>
         );
       case 'colecao':
@@ -112,8 +106,6 @@ export default function Home() {
           <div className={styles.headerContent}>
             <PerfilUsuario 
               nome={usuario.nome}
-              valorCarteira={usuario.valorCarteira}
-              variacao={usuario.variacao}
             />
             
             {/* Pesquisa de cartas logo abaixo do perfil */}

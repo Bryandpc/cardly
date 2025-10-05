@@ -16,8 +16,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Cardly - Cotação TCG Pokémon",
-  description: "Aplicação para cotação de cartas TCG Pokémon com foco em responsividade mobile",
+  title: "Cardly - Cartas TCG Pokémon",
+  description: "Aplicação para coleção e análise de cartas TCG Pokémon com foco em responsividade mobile",
 };
 
 export default function RootLayout({

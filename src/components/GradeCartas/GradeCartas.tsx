@@ -38,7 +38,7 @@ export default function GradeCartas({ cartas, aoSelecionarCarta }: GradeCartasPr
       <section className={styles.secaoGrade}>
         <div className={styles.cabecalho}>
           <h2 className={styles.titulo}>Cartas em Alta</h2>
-          <p className={styles.subtitulo}>Carregando cotações...</p>
+          <p className={styles.subtitulo}>Carregando cartas...</p>
         </div>
         <div className={styles.loading}>
           <div className={styles.spinner}></div>
@@ -52,7 +52,7 @@ export default function GradeCartas({ cartas, aoSelecionarCarta }: GradeCartasPr
       <section className={styles.secaoGrade}>
         <div className={styles.cabecalho}>
           <h2 className={styles.titulo}>Cartas em Alta</h2>
-          <p className={styles.subtitulo}>Erro ao carregar cotações</p>
+          <p className={styles.subtitulo}>Erro ao carregar cartas</p>
         </div>
         <div className={styles.erro}>
           <p>Não foi possível carregar as cartas. Tente novamente.</p>
@@ -65,7 +65,7 @@ export default function GradeCartas({ cartas, aoSelecionarCarta }: GradeCartasPr
     <section className={styles.secaoGrade}>
       <div className={styles.cabecalho}>
         <h2 className={styles.titulo}>Cartas em Alta</h2>
-        <p className={styles.subtitulo}>Acompanhe as cotações mais atualizadas</p>
+        <p className={styles.subtitulo}>Descubra as cartas mais valorizadas</p>
       </div>
       
       <div className={styles.grade}>
