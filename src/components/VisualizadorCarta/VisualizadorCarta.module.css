@@ -6,33 +6,33 @@
   right: 0;
   bottom: 0;
   background: var(--background-secondary);
-  z-index: 50; /* Abaixo do menu inferior (z-index: 99) */
+  z-index: 50;
   display: flex;
   flex-direction: column;
   animation: slideInUp 0.3s ease-out;
 }
 
-/* Header */
 .header {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
+  padding: 0 .4rem;
   background: var(--background-primary);
   border-bottom: 1px solid var(--border-primary);
-  box-shadow: var(--shadow-sm);
 }
 
 .botaoVoltar {
-  background: var(--gray-100);
-  border: 1px solid var(--border-secondary);
+  background: transparent;
+  border: none;
+  padding: .8rem;
   border-radius: 12px;
   width: 48px;
   height: 48px;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--text-tertiary);
+  color: var(--texto-primario);
   cursor: pointer;
   transition: all 0.2s ease;
 }
@@ -44,7 +44,7 @@
 
 .nomeCarta {
   color: var(--text-primary);
-  font-size: 1.5rem;
+  font-size: 1.2rem;
   font-weight: 700;
   margin: 0;
   text-transform: capitalize;
@@ -80,21 +80,21 @@
 /* Conteúdo */
 .conteudo {
   flex: 1;
-  padding: 0.5rem 1rem;
-  padding-bottom: 100px; /* Espaço para o menu inferior */
+  padding: 0 1rem;
+  padding-bottom: 100px;
   overflow-y: auto;
   overflow-x: hidden;
   display: flex;
   flex-direction: column;
   gap: 0;
-  min-height: 0; /* Importante: permite que o flex child seja menor que o conteúdo */
+  min-height: 0;
 }
 
 .containerImagem {
   display: flex;
   justify-content: center;
   align-items: center;
-  flex-shrink: 0; /* Impede que a imagem seja comprimida */
+  flex-shrink: 0;
 }
 
 .imagemCarta {
@@ -110,24 +110,24 @@
   background: var(--border-secondary);
   margin: 2rem 1rem;
   border-radius: 2px;
-  flex-shrink: 0; 
+  flex-shrink: 0;
 }
 
+/* Informações */
 .informacoes {
-    border-radius: 6px;
-    border: 1px solid var(--border-primary);
-    padding: 1rem;
-    color: var(--text-primary);
-    display: flex;
-    gap: .1rem;
-    flex-direction: column;
-    width: 100%;
-    flex-shrink: 0; 
+  border: 1px solid var(--border-primary);
+  padding: 1rem;
+  border-radius: 8px;
+  color: var(--text-primary);
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  flex-shrink: 0;
 }
 
 .nomeCartaInfo {
   font-size: 1rem;
-  padding-bottom: .2rem;
+  padding-bottom: .6rem;
   font-weight: 700;
   color: var(--text-primary);
   margin: 0;
@@ -136,7 +136,7 @@
 }
 
 .colecao {
-  font-size: .875rem;
+  font-size: .75rem;
   font-weight: 500;
   color: var(--text-secondary);
   margin: 0;
@@ -144,26 +144,11 @@
 }
 
 .raridadeNumero {
-  font-size: .875rem;
+  font-size: .75rem;
   font-weight: 600;
   color: var(--text-tertiary);
   margin: 0;
   text-align: left;
-}
-
-.botaoAdicionarColecao {
-  background: var(--primary-500);
-  color: var(--background-primary);
-  border: none;
-  border-radius: 12px;
-  padding: 1rem 2rem;
-  font-size: 1rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  margin-top: 1rem;
-  width: 100%;
-  align-self: stretch;
 }
 
 .botaoAdicionarColecao:hover {
@@ -172,36 +157,83 @@
   box-shadow: var(--shadow-primary);
 }
 
-.informacoesAdicionais {
+.informacoesAdicionais { 
     display: flex;
-    gap: 1rem;
-    margin-top: 1rem;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: .3rem;
+    gap: 1.5rem;
+}
+
+/* Estilo personalizado para o botão de adicionar à coleção */
+.informacoesAdicionais .botaoAdicionar {
+    display: flex;
+    width: auto;
+    min-width: 90px;
+    background: transparent;
+    color: var(--texto-primario);
+    border: 1px solid var(--borda-primaria);
+    border-radius: 4px;
+    transition: all 0.2s ease;
+    box-shadow: none;
+}
+
+.informacoesAdicionais .botaoAdicionar:hover {
+    background: var(--fundo-secundario);
+    border-color: var(--texto-secundario);
+    transform: none;
+    box-shadow: var(--sombra-pequena);
+}
+
+.informacoesAdicionais .botaoAdicionar:active {
+    transform: translateY(1px);
+    box-shadow: none;
+}
+
+.informacoesAdicionais .botaoAdicionar .icone {
+    font-size: 0.625rem;
+    color: var(--texto-primario);
+}
+
+.informacoesAdicionais .botaoAdicionar .texto {
+    font-size: 0.625rem;
+    font-weight: 500;
+    color: var(--texto-primario);
 }
 
 .precoContainer {
   display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  gap: 1rem;
-  margin: 1rem 0;
-  padding: 1rem;
-  background: var(--gray-50);
-  border-radius: 12px;
-  border: 2px solid var(--border-primary);
-  width: 100%;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-end;
+  gap: .2rem;
+}
+
+.precoContainerPrincipal {
+    display: flex;
+    align-items: center;
 }
 
 .preco {
-  font-size: 2rem;
+  font-size: .8rem;
   font-weight: 700;
-  color: var(--success-500);
+}
+
+.precoContainerIcone {
+    font-size: .9rem;
+}
+
+.precoContainerIcone.positiva {
+  color: var(--success-600);
+}
+
+.precoContainerIcone.negativa {
+  color: var(--error-500);
 }
 
 .variacao {
-  font-size: 1rem;
+  font-size: .7rem;
   font-weight: 600;
-  padding: 0.25rem 0.5rem;
-  border-radius: 8px;
 }
 
 .variacao.positiva {
@@ -262,7 +294,7 @@
 @media (min-width: 768px) {
   .conteudo {
     padding: 1rem;
-    padding-bottom: 100px; /* Espaço para o menu inferior */
+    padding-bottom: 100px;
   }
 
   .containerImagem {
@@ -290,224 +322,396 @@
   }
 }
 
-.botaoVoltar {
+/* Animação da bolinha para coleção */
+.bolinhaAnimacao {
+  position: fixed;
+  width: 36px;
+  height: 36px;
+  background: linear-gradient(135deg, var(--primary-color, #3B82F6), #1D4ED8);
+  border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 2.5rem;
-  height: 2.5rem;
-  background: var(--gray-100);
-  border: none;
+  color: white;
+  box-shadow: 
+    0 4px 12px rgba(59, 130, 246, 0.4),
+    0 0 0 2px rgba(255, 255, 255, 0.8);
+  z-index: 1000;
+  pointer-events: none;
+  
+  /* Posição inicial - próximo ao botão */
+  top: 70%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  
+  /* Animação */
+  animation: vooParaColecao 1.4s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+}
+
+/* Adicionar partículas de brilho */
+.bolinhaAnimacao::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.3), transparent);
   border-radius: 50%;
+  animation: giroBrilho 1.4s linear infinite;
+}
+
+.bolinhaAnimacao::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 8px;
+  height: 8px;
+  background: rgba(255, 255, 255, 0.6);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  animation: pulsoBrilho 0.6s ease-in-out infinite alternate;
+}
+
+/* Keyframes para a animação da bolinha */
+@keyframes vooParaColecao {
+  0% {
+    top: 70%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.6);
+    opacity: 0;
+  }
+  
+  15% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  
+  25% {
+    transform: translate(-50%, -50%) scale(1.1) rotate(0deg);
+  }
+  
+  50% {
+    top: 35%;
+    left: 65%;
+    transform: translate(-50%, -50%) scale(1) rotate(180deg);
+  }
+  
+  75% {
+    top: 60%;
+    left: 75%;
+    transform: translate(-50%, -50%) scale(0.9) rotate(270deg);
+  }
+  
+  90% {
+    top: 92%;
+    left: 70%;
+    transform: translate(-50%, -50%) scale(0.8) rotate(360deg);
+  }
+  
+  100% {
+    top: 95%;
+    left: 70%;
+    transform: translate(-50%, -50%) scale(0.4) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+/* Animações para efeitos visuais */
+@keyframes giroBrilho {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes pulsoBrilho {
+  0% { opacity: 0.6; transform: translate(-50%, -50%) scale(1); }
+  100% { opacity: 1; transform: translate(-50%, -50%) scale(1.2); }
+}
+
+/* Efeito no botão durante animação */
+.botaoAnimando {
+  transform: scale(0.98);
+  opacity: 0.8;
+  pointer-events: none;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+/* Efeito de onda no botão */
+.botaoAnimando::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  background: rgba(59, 130, 246, 0.2);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  animation: ondaExpansao 0.6s ease-out;
+}
+
+@keyframes ondaExpansao {
+  0% {
+    width: 0;
+    height: 0;
+    opacity: 1;
+  }
+  100% {
+    width: 100px;
+    height: 100px;
+    opacity: 0;
+  }
+}
+
+/* Efeito de pulso no botão após clicar */
+.botaoAdicionar:active {
+  animation: pulsoBotao 0.2s ease;
+}
+
+@keyframes pulsoBotao {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(0.96);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* Efeito de shake suave quando a animação termina */
+@keyframes shakeSuccess {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-2px); }
+  75% { transform: translateX(2px); }
+}
+
+/* Estilos para o gráfico */
+.secaoGrafico {
+  background: var(--fundo-primario);
+  border: 1px solid var(--borda-primaria);
+  border-radius: 16px;
+  padding: 1.5rem;
+  margin-top: 1.5rem;
+  box-shadow: var(--sombra-pequena);
+}
+
+.headerGrafico {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1rem;
+  gap: 1rem;
+}
+
+.tituloGrafico {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.tituloGrafico h3 {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--texto-primario);
+}
+
+.tendenciaGrafico {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.iconeAlta {
+  color: var(--cor-sucesso-500);
+}
+
+.iconeBaixa {
+  color: var(--cor-erro-500);
+}
+
+.iconeEstavel {
+  color: var(--cinza-500);
+}
+
+.variacaoGrafico {
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.variacaoGrafico.alta {
+  color: var(--cor-sucesso-600);
+}
+
+.variacaoGrafico.baixa {
+  color: var(--cor-erro-500);
+}
+
+.variacaoGrafico.estavel {
+  color: var(--cinza-500);
+}
+
+.controlesGrafico {
+  display: flex;
+  gap: 0.5rem;
+  background: var(--fundo-secundario);
+  padding: 0.25rem;
+  border-radius: 8px;
+  border: 1px solid var(--borda-primaria);
+}
+
+.botaoTipoGrafico {
+  background: transparent;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--texto-secundario);
   cursor: pointer;
   transition: all 0.2s ease;
-  outline: none;
-  -webkit-tap-highlight-color: transparent;
+  white-space: nowrap;
 }
 
-.botaoVoltar:hover {
-  background: var(--gray-200);
-  transform: scale(1.05);
+.botaoTipoGrafico:hover {
+  background: var(--fundo-primario);
+  color: var(--texto-primario);
 }
 
-.botaoVoltar:active {
-  transform: scale(0.95);
+.botaoTipoGrafico.ativo {
+  background: var(--cor-primaria-500);
+  color: white;
+  box-shadow: var(--sombra-pequena);
 }
 
-.iconeVoltar {
-  font-size: 1.25rem;
-  color: var(--text-tertiary);
+.estatisticasGrafico {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  padding: 1rem;
+  background: var(--fundo-secundario);
+  border-radius: 12px;
+  border: 1px solid var(--borda-primaria);
 }
 
-.infoCarta {
-  flex: 1;
+.estatistica {
   display: flex;
   flex-direction: column;
   gap: 0.25rem;
+  flex: 1;
+  text-align: center;
 }
 
-.nomeCarta {
-  font-size: 1.25rem;
+.estatisticaLabel {
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--texto-secundario);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.estatisticaValor {
+  font-size: 0.875rem;
   font-weight: 700;
-  color: var(--text-primary);
+  color: var(--texto-primario);
+}
+
+.containerGrafico {
+  position: relative;
+  width: 100%;
+  height: 280px;
+  background: var(--fundo-primario);
+  border-radius: 8px;
+}
+
+.tooltip {
+  background: var(--fundo-primario);
+  border: 1px solid var(--borda-primaria);
+  border-radius: 8px;
+  padding: 0.75rem;
+  box-shadow: var(--sombra-media);
+  backdrop-filter: blur(10px);
+}
+
+.tooltipData {
+  font-size: 0.75rem;
+  color: var(--texto-secundario);
+  margin: 0 0 0.25rem 0;
+  font-weight: 500;
+}
+
+.tooltipPreco {
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--texto-primario);
   margin: 0;
 }
 
-.colecaoCarta {
-  font-size: 0.875rem;
-  color: var(--text-secondary);
-  font-weight: 500;
-}
-
-.conteudo {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-  padding: 1.5rem 1rem;
-  gap: 1.5rem;
-  overflow-y: auto;
-  min-height: 0;
-}
-
-.imagemContainer {
-  position: relative;
-  max-width: 300px;
-  width: 100%;
-  aspect-ratio: 2/3;
-  border-radius: 1rem;
-  overflow: hidden;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
-  animation: cardReveal 0.5s ease-out 0.2s both;
-  margin: 0 auto;
-}
-
-@keyframes cardReveal {
-  from {
-    transform: scale(0.8) rotateY(15deg);
-    opacity: 0;
+/* Responsividade para o gráfico */
+@media (max-width: 768px) {
+  .secaoGrafico {
+    padding: 1rem;
+    margin-top: 1rem;
   }
-  to {
-    transform: scale(1) rotateY(0deg);
-    opacity: 1;
+
+  .headerGrafico {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1rem;
   }
-}
 
-.imagemCarta {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border-radius: 1rem;
-}
-
-.detalhes {
-  width: 100%;
-  max-width: 300px;
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  animation: detailsReveal 0.5s ease-out 0.3s both;
-  margin-bottom: 1rem;
-}
-
-@keyframes detailsReveal {
-  from {
-    transform: translateY(20px);
-    opacity: 0;
-  }
-  to {
-    transform: translateY(0);
-    opacity: 1;
-  }
-}
-
-.precoContainer {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem;
-  background: var(--background-primary);
-  border-radius: 0.75rem;
-  box-shadow: var(--shadow-sm);
-}
-
-.preco {
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: var(--success-600);
-}
-
-.variacao {
-  font-size: 0.875rem;
-  font-weight: 600;
-  padding: 0.25rem 0.5rem;
-  border-radius: 0.375rem;
-}
-
-.variacao.positiva {
-  background-color: var(--success-100);
-  color: var(--success-600);
-}
-
-.variacao.negativa {
-  background-color: var(--error-100);
-  color: var(--error-500);
-}
-
-.infoItem {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0.5rem 0;
-  border-bottom: 1px solid var(--gray-100);
-}
-
-.infoItem:last-child {
-  border-bottom: none;
-}
-
-.infoLabel {
-  font-size: 0.875rem;
-  color: var(--text-secondary);
-  font-weight: 500;
-}
-
-.infoValor {
-  font-size: 0.875rem;
-  color: var(--text-primary);
-  font-weight: 600;
-}
-
-/* Responsividade */
-@media (min-width: 768px) {
-  .header {
-    min-height: 70px;
-  }
-  
-  .nomeCarta {
-    font-size: 1.5rem;
-  }
-  
-  .conteudo {
-    flex-direction: row;
+  .tituloGrafico {
     align-items: flex-start;
-    justify-content: center;
-    padding: 2rem;
-    gap: 2rem;
   }
-  
-  .imagemContainer {
-    max-width: 320px;
+
+  .controlesGrafico {
+    align-self: flex-start;
   }
-  
-  .detalhes {
-    max-width: 280px;
-    margin-bottom: 0;
+
+  .estatisticasGrafico {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .estatistica {
+    flex-direction: row;
+    justify-content: space-between;
+    text-align: left;
+  }
+
+  .containerGrafico {
+    height: 240px;
+  }
+
+  .tituloGrafico h3 {
+    font-size: 1.125rem;
   }
 }
 
 @media (max-width: 480px) {
-  .header {
-    padding: 0 0.5rem;
-    min-height: 50px;
+  .secaoGrafico {
+    padding: 0.75rem;
+    border-radius: 12px;
   }
-  
-  .conteudo {
-    padding: 1rem 0.75rem;
-    gap: 1rem;
+
+  .estatisticasGrafico {
+    padding: 0.75rem;
   }
-  
-  .imagemContainer {
-    max-width: 260px;
+
+  .containerGrafico {
+    height: 200px;
   }
-  
-  .detalhes {
-    max-width: 260px;
-    margin-bottom: 0.5rem;
+
+  .controlesGrafico {
+    width: 100%;
   }
-  
-  .preco {
-    font-size: 1.25rem;
+
+  .botaoTipoGrafico {
+    flex: 1;
+    text-align: center;
   }
 }

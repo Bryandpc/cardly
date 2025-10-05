@@ -1,0 +1,88 @@
+/* Estilos para react-hot-toast */
+
+/* Container principal dos toasts */
+[data-sonner-toaster] {
+  z-index: 9999;
+}
+
+/* Estilo base para todos os toasts */
+div[role="status"] {
+  background: var(--fundo-primario);
+  color: var(--texto-primario);
+  border: 1px solid var(--borda-primaria);
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 600;
+  box-shadow: var(--sombra-media);
+  backdrop-filter: blur(10px);
+}
+
+/* Ajustes para toasts de sucesso */
+div[role="status"][aria-live="polite"] {
+  background: linear-gradient(135deg, var(--cor-sucesso-500), var(--cor-sucesso-600));
+  color: white;
+  border: none;
+}
+
+/* Ajustes para toasts de erro */
+div[role="status"][data-type="error"] {
+  background: linear-gradient(135deg, var(--cor-erro-500), #dc2626);
+  color: white;
+  border: none;
+}
+
+/* Ícones dos toasts */
+.toast-icon {
+  width: 18px;
+  height: 18px;
+}
+
+/* Container do react-hot-toast */
+.react-hot-toast {
+  z-index: 9999;
+}
+
+/* Animações dos toasts */
+.react-hot-toast > div {
+  animation: slideInFromBottom 0.3s cubic-bezier(0.21, 1.02, 0.73, 1) forwards;
+}
+
+.react-hot-toast > div[data-visible="false"] {
+  animation: slideOutToBottom 0.2s ease-in forwards;
+}
+
+@keyframes slideInFromBottom {
+  from {
+    transform: translateY(100%) scale(0.9);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes slideOutToBottom {
+  to {
+    transform: translateY(100%) scale(0.9);
+    opacity: 0;
+  }
+}
+
+/* Responsividade */
+@media (max-width: 640px) {
+  div[role="status"] {
+    margin: 0 1rem;
+    width: calc(100% - 2rem);
+    max-width: none;
+  }
+}
+
+/* Tema escuro (se implementado futuramente) */
+@media (prefers-color-scheme: dark) {
+  div[role="status"] {
+    background: var(--cinza-800, #1f2937);
+    color: var(--cinza-100, #f3f4f6);
+    border-color: var(--cinza-700, #374151);
+  }
+}

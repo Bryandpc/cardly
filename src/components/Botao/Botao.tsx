@@ -5,15 +5,17 @@ interface BotaoProps {
     icone: React.ReactNode;
     texto?: string;
     onClick?: () => void;
+    customClass?: string;
 }
 
 const Botao: React.FC<BotaoProps> = ({
     icone,
     texto,
-    onClick
+    onClick,
+    customClass
 }) => {
     return (
-        <button className={styles.botao} onClick={onClick}>
+        <button className={`${styles.botao} ${customClass}`} onClick={onClick}>
             <span className={styles.icone}>
                 {icone}
             </span>

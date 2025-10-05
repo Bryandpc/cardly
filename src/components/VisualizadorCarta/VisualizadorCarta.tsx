@@ -1,11 +1,25 @@
 'use client';
 
 import styles from './VisualizadorCarta.module.css';
-import { HiArrowLeft, HiStar } from 'react-icons/hi2';
+import { HiArrowLeft, HiStar, HiArrowTrendingUp, HiArrowTrendingDown, HiMinus } from 'react-icons/hi2';
 import { PokemonCarta } from '@/types/pokeapi';
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import Botao from '../Botao/Botao';
 import { FiFolderPlus } from 'react-icons/fi';
+import { IoMdArrowDropdown, IoMdArrowDropup } from 'react-icons/io';
+import { HiRectangleStack } from 'react-icons/hi2';
+import { useToasts } from '@/hooks';
+import {
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  ResponsiveContainer,
+  Tooltip,
+  Area,
+  AreaChart
+} from 'recharts';
 
 interface VisualizadorCartaProps {
   carta: PokemonCarta | null;
@@ -14,12 +28,147 @@ interface VisualizadorCartaProps {
 
 export default function VisualizadorCarta({ carta, aoVoltar }: VisualizadorCartaProps) {
   const [favoritada, setFavoritada] = useState(false);
+  const [animandoColecao, setAnimandoColecao] = useState(false);
+  const [tipoGrafico, setTipoGrafico] = useState<'linha' | 'area'>('area');
+  const botaoRef = useRef<HTMLDivElement>(null);
+  const toasts = useToasts();
   
   if (!carta) return null;
 
+  // Dados mockados do gráfico baseados no ID da carta
+  const gerarDadosGrafico = () => {
+    const seed = parseInt(carta.id) || 1;
+    const dadosGrafico = [];
+    let precoBase = carta.preco * 0.7; // Começa com 70% do preço atual
+    
+    // Gera 12 pontos (últimos 12 meses)
+    for (let i = 11; i >= 0; i--) {
+      const data = new Date();
+      data.setMonth(data.getMonth() - i);
+      
+      // Variação baseada no seed para consistência
+      const variacao = Math.sin((seed + i) * 0.5) * 0.15 + 
+                       Math.cos((seed * 2 + i) * 0.3) * 0.08;
+      
+      precoBase = precoBase * (1 + variacao);
+      
+      // Garante que o último ponto seja o preço atual
+      const preco = i === 0 ? carta.preco : precoBase;
+      
+      dadosGrafico.push({
+        data: data.toLocaleDateString('pt-BR', { month: '2-digit', day: '2-digit' }),
+        preco: Math.round(preco * 100) / 100,
+        precoFormatado: new Intl.NumberFormat('pt-BR', {
+          style: 'currency',
+          currency: 'BRL',
+        }).format(preco)
+      });
+    }
+    
+    return dadosGrafico;
+  };
+
+  // Calcula estatísticas do gráfico
+  const calcularEstatisticas = (dados: any[]) => {
+    const precos = dados.map(d => d.preco);
+    const precoMinimo = Math.min(...precos);
+    const precoMaximo = Math.max(...precos);
+    const precoMedio = precos.reduce((a, b) => a + b, 0) / precos.length;
+    
+    const precoInicial = dados[0].preco;
+    const precoFinal = dados[dados.length - 1].preco;
+    const variacaoPercentual = ((precoFinal - precoInicial) / precoInicial) * 100;
+    
+    let tendencia: 'alta' | 'baixa' | 'estavel';
+    if (variacaoPercentual > 5) {
+      tendencia = 'alta';
+    } else if (variacaoPercentual < -5) {
+      tendencia = 'baixa';
+    } else {
+      tendencia = 'estavel';
+    }
+
+    return {
+      precoMinimo,
+      precoMaximo,
+      precoMedio,
+      variacaoPercentual,
+      tendencia
+    };
+  };
+
+  const dadosGrafico = gerarDadosGrafico();
+  const estatisticas = calcularEstatisticas(dadosGrafico);
+
+  // Componente customizado do tooltip
+  const CustomTooltip = ({ active, payload, label }: any) => {
+    if (active && payload && payload.length) {
+      return (
+        <div className={styles.tooltip}>
+          <p className={styles.tooltipData}>{label}</p>
+          <p className={styles.tooltipPreco}>
+            {payload[0].payload.precoFormatado}
+          </p>
+        </div>
+      );
+    }
+    return null;
+  };
+
+  // Ícone da tendência
+  const IconeTendencia = () => {
+    switch (estatisticas.tendencia) {
+      case 'alta':
+        return <HiArrowTrendingUp className={styles.iconeAlta} />;
+      case 'baixa':
+        return <HiArrowTrendingDown className={styles.iconeBaixa} />;
+      default:
+        return <HiMinus className={styles.iconeEstavel} />;
+    }
+  };
+
+  // Cores baseadas na tendência
+  const corLinha = estatisticas.tendencia === 'alta' 
+    ? '#10b981' 
+    : estatisticas.tendencia === 'baixa' 
+    ? '#dc2626' 
+    : '#3b82f6';
+
   const handleFavoritar = () => {
     setFavoritada(!favoritada);
-    // Aqui você pode adicionar lógica para salvar no estado global ou API
+    
+    if (!favoritada) {
+      toasts.adicionarFavoritos();
+    } else {
+      toasts.removerFavoritos();
+    }
+  };
+
+  const handleAdicionarColecao = () => {
+    if (animandoColecao) return; // Previne múltiplos cliques durante a animação
+    
+    setAnimandoColecao(true);
+    
+    // Adicionar efeito de feedback visual imediato
+    if (botaoRef.current) {
+      botaoRef.current.style.transform = 'scale(0.95)';
+      setTimeout(() => {
+        if (botaoRef.current) {
+          botaoRef.current.style.transform = 'scale(1)';
+        }
+      }, 150);
+    }
+    
+    // Simula uma operação de adicionar à coleção
+    setTimeout(() => {
+      setAnimandoColecao(false);
+      
+      // Toast de sucesso com animação customizada
+      toasts.adicionarColecao(carta.nome);
+      
+      // Aqui você pode adicionar a lógica real de adicionar à coleção
+      console.log('Carta adicionada à coleção:', carta.nome);
+    }, 1400); // Duração da animação
   };
 
   return (
@@ -66,33 +215,210 @@ export default function VisualizadorCarta({ carta, aoVoltar }: VisualizadorCarta
           </p>
 
           <div className={styles.informacoesAdicionais}>
-            <Botao
-                icone={<FiFolderPlus />}
-                texto="Adicionar à coleção"
-                onClick={() => alert('Funcionalidade de adicionar à coleção ainda não implementada')}
-            >
-            </Botao>
+            <div ref={botaoRef}>
+              <Botao
+                  icone={<FiFolderPlus />}
+                  texto={animandoColecao ? "Adicionando..." : "Adicionar à coleção"}
+                  onClick={handleAdicionarColecao}
+                  customClass={`${styles.botaoAdicionar} ${animandoColecao ? styles.botaoAnimando : ''}`}
+              >
+              </Botao>
+            </div>
             
             <div className={styles.precoContainer}>
-                <span className={styles.preco}>
-                {new Intl.NumberFormat('pt-BR', {
-                    style: 'currency',
-                    currency: 'BRL'
-                }).format(carta.preco)}
-                </span>
+                <div className={styles.precoContainerPrincipal}>
+                    <span
+                      className={`${styles.precoContainerIcone} ${
+                        carta.variacao !== undefined
+                          ? carta.variacao >= 0
+                            ? styles.positiva
+                            : styles.negativa
+                          : ''
+                      }`}
+                    >
+                      {carta.variacao !== undefined
+                        ? carta.variacao >= 0
+                          ? <IoMdArrowDropup />
+                          : <IoMdArrowDropdown />
+                        : null}
+                    </span>
+                    <span className={styles.preco}>
+                        {new Intl.NumberFormat('pt-BR', {
+                            style: 'currency',
+                            currency: 'BRL'
+                        }).format(carta.preco)}
+                    </span>
+                </div>
                 {carta.variacao !== undefined && (
-                <span 
-                    className={`${styles.variacao} ${
-                    carta.variacao >= 0 ? styles.positiva : styles.negativa
-                    }`}
-                >
-                    {carta.variacao >= 0 ? '+' : ''}{carta.variacao.toFixed(1)}%
-                </span>
+                    <span 
+                        className={`${styles.variacao} ${
+                        carta.variacao >= 0 ? styles.positiva : styles.negativa
+                        }`}
+                    >
+                        {carta.variacao >= 0 ? '+' : ''}{carta.variacao.toFixed(1)}%
+                    </span>
                 )}
+            </div>
+          </div>
+
+          {/* Seção do Gráfico de Evolução de Preço */}
+          <div className={styles.secaoGrafico}>
+            {/* Header do gráfico */}
+            <div className={styles.headerGrafico}>
+              <div className={styles.tituloGrafico}>
+                <h3>Evolução de Preço</h3>
+                <div className={styles.tendenciaGrafico}>
+                  <IconeTendencia />
+                  <span className={`${styles.variacaoGrafico} ${styles[estatisticas.tendencia]}`}>
+                    {estatisticas.variacaoPercentual >= 0 ? '+' : ''}
+                    {estatisticas.variacaoPercentual.toFixed(1)}%
+                  </span>
+                </div>
+              </div>
+              
+              {/* Controles do gráfico */}
+              <div className={styles.controlesGrafico}>
+                <button
+                  className={`${styles.botaoTipoGrafico} ${tipoGrafico === 'linha' ? styles.ativo : ''}`}
+                  onClick={() => setTipoGrafico('linha')}
+                >
+                  Linha
+                </button>
+                <button
+                  className={`${styles.botaoTipoGrafico} ${tipoGrafico === 'area' ? styles.ativo : ''}`}
+                  onClick={() => setTipoGrafico('area')}
+                >
+                  Área
+                </button>
+              </div>
+            </div>
+
+            {/* Estatísticas rápidas */}
+            <div className={styles.estatisticasGrafico}>
+              <div className={styles.estatistica}>
+                <span className={styles.estatisticaLabel}>Mínimo</span>
+                <span className={styles.estatisticaValor}>
+                  {new Intl.NumberFormat('pt-BR', {
+                    style: 'currency',
+                    currency: 'BRL',
+                  }).format(estatisticas.precoMinimo)}
+                </span>
+              </div>
+              <div className={styles.estatistica}>
+                <span className={styles.estatisticaLabel}>Máximo</span>
+                <span className={styles.estatisticaValor}>
+                  {new Intl.NumberFormat('pt-BR', {
+                    style: 'currency',
+                    currency: 'BRL',
+                  }).format(estatisticas.precoMaximo)}
+                </span>
+              </div>
+              <div className={styles.estatistica}>
+                <span className={styles.estatisticaLabel}>Médio</span>
+                <span className={styles.estatisticaValor}>
+                  {new Intl.NumberFormat('pt-BR', {
+                    style: 'currency',
+                    currency: 'BRL',
+                  }).format(estatisticas.precoMedio)}
+                </span>
+              </div>
+            </div>
+
+            {/* Gráfico */}
+            <div className={styles.containerGrafico}>
+              <ResponsiveContainer width="100%" height={280}>
+                {tipoGrafico === 'area' ? (
+                  <AreaChart data={dadosGrafico} margin={{ top: 5, right: 5, left: 5, bottom: 5 }}>
+                    <defs>
+                      <linearGradient id="gradientArea" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="5%" stopColor={corLinha} stopOpacity={0.3} />
+                        <stop offset="95%" stopColor={corLinha} stopOpacity={0.05} />
+                      </linearGradient>
+                    </defs>
+                    <CartesianGrid 
+                      strokeDasharray="3 3" 
+                      stroke="var(--borda-secundaria)" 
+                      strokeOpacity={0.3}
+                    />
+                    <XAxis 
+                      dataKey="data" 
+                      axisLine={false}
+                      tickLine={false}
+                      tick={{ fontSize: 12, fill: 'var(--texto-secundario)' }}
+                    />
+                    <YAxis 
+                      axisLine={false}
+                      tickLine={false}
+                      tick={{ fontSize: 12, fill: 'var(--texto-secundario)' }}
+                      tickFormatter={(value) => 
+                        new Intl.NumberFormat('pt-BR', {
+                          style: 'currency',
+                          currency: 'BRL',
+                          minimumFractionDigits: 0,
+                          maximumFractionDigits: 0,
+                        }).format(value)
+                      }
+                    />
+                    <Tooltip content={<CustomTooltip />} />
+                    <Area
+                      type="monotone"
+                      dataKey="preco"
+                      stroke={corLinha}
+                      strokeWidth={3}
+                      fill="url(#gradientArea)"
+                      dot={{ fill: corLinha, strokeWidth: 2, r: 4 }}
+                      activeDot={{ r: 6, stroke: corLinha, strokeWidth: 2 }}
+                    />
+                  </AreaChart>
+                ) : (
+                  <LineChart data={dadosGrafico} margin={{ top: 5, right: 5, left: 5, bottom: 5 }}>
+                    <CartesianGrid 
+                      strokeDasharray="3 3" 
+                      stroke="var(--borda-secundaria)" 
+                      strokeOpacity={0.3}
+                    />
+                    <XAxis 
+                      dataKey="data" 
+                      axisLine={false}
+                      tickLine={false}
+                      tick={{ fontSize: 12, fill: 'var(--texto-secundario)' }}
+                    />
+                    <YAxis 
+                      axisLine={false}
+                      tickLine={false}
+                      tick={{ fontSize: 12, fill: 'var(--texto-secundario)' }}
+                      tickFormatter={(value) => 
+                        new Intl.NumberFormat('pt-BR', {
+                          style: 'currency',
+                          currency: 'BRL',
+                          minimumFractionDigits: 0,
+                          maximumFractionDigits: 0,
+                        }).format(value)
+                      }
+                    />
+                    <Tooltip content={<CustomTooltip />} />
+                    <Line
+                      type="monotone"
+                      dataKey="preco"
+                      stroke={corLinha}
+                      strokeWidth={3}
+                      dot={{ fill: corLinha, strokeWidth: 2, r: 4 }}
+                      activeDot={{ r: 6, stroke: corLinha, strokeWidth: 2 }}
+                    />
+                  </LineChart>
+                )}
+              </ResponsiveContainer>
             </div>
           </div>
         </div>
       </div>
+
+      {/* Bolinha de animação */}
+      {animandoColecao && (
+        <div className={styles.bolinhaAnimacao}>
+          <HiRectangleStack size={20} />
+        </div>
+      )}
     </div>
   );
 }
